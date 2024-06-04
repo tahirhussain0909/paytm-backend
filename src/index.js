@@ -12,7 +12,7 @@ app.use(express.json())
 app.use('/api/v1', rootRouter)
 
 app.get('/', (req, res) => {
-  res.send('Express Server is Running')
+  res.send('Express Server is listening')
 })
 
 app.listen(PORT, () => {
