@@ -1,8 +1,6 @@
 const express = require('express')
 const zod = require('zod')
 const jwt = require('jsonwebtoken')
-const fs = require('fs')
-const path = require('path')
 
 const { User, Account } = require('../db/db')
 const { JWT_SECRET } = require('../secrets/config')
@@ -65,13 +63,6 @@ router.post('/signup', async (req, res) => {
     },
     JWT_SECRET,
   )
-
-  const tokensFilePath = path.join(__dirname, '../token_data/tokens.json');
-  const existingTokens = fs.existsSync(tokensFilePath)
-    ? JSON.parse(fs.readFileSync(tokensFilePath, 'utf-8'))
-    : [];
-  existingTokens.push(`${user.username}: ${token}`); // Add email in front of the token
-  fs.writeFileSync(tokensFilePath, JSON.stringify(existingTokens, null, 2));
 
   res.json({
     message: 'User created successfully',
